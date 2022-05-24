@@ -12,6 +12,7 @@ kubectl-set-context:
 	# step 2
 	# connect kubectl to kind cluster
 	kubectl config use-context kind-de
+	kubectl config set-context --current --namespace=playground-ns
 
 helm-lock-marquez:
 	# step 3a
@@ -33,3 +34,6 @@ helm-install:
  	--set global.postgresql.auth.postgresPassword="macondo"\
  	 -f "./de/values.yaml"\
  	 --debug
+
+cleanup:
+	kind delete cluster kind-de

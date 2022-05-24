@@ -5,5 +5,8 @@ dependencies:
 - name: airflow
   repository: https://airflow.apache.org
   version: 1.5.0
-digest: sha256:e0fdfddbf65e5426dba8bdd7946273d4146726687d99d31304bf98011f9e755e
-generated: "2022-05-15T17:17:04.449969-05:00"
+- name: postgresql
+  repository: https://charts.bitnami.com/bitnami
+  version: 11.2.4
+digest: sha256:515579cc47694043ecea73cdd1898827b3da72d192118c90d2b91d4429124d48
+generated: "2022-05-19T23:44:32.129761-05:00"
