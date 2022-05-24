@@ -1,0 +1,15 @@
+marquez:
+  enabled: true
+
+#  port: 80
+#
+#  hostname: marquez.playground-ns.svc.cluster.local
+
+  postgresql:
+    enabled: true
+
+airflow:
+  enabled: true
+
+  postgresql:
+    enabled: true

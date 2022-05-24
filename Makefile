@@ -1,7 +1,7 @@
 kind:
 	# step 1
 	# create kind cluster
-	kind create cluster --config="./de/kind/kind.yaml"
+	kind create cluster --config="./kind/kind.yaml"
 
 kind-get-cluster:
 	# mostly just putting this here for memory
@@ -17,23 +17,32 @@ kubectl-set-context:
 helm-lock-marquez:
 	# step 3a
 	# update marquez
-	helm dependency update "./marquez"
+	helm dependency update "./charts/marquez"
 
-helm-lock:
+helm-lock-airflow:
 	# step 3b
 	# update our chart
-	helm dependency update "./de"
+	helm dependency update "./charts/airflow"
 
-helm-install:
+release-airflow:
 	# step 4
 	# install our chart
-	helm upgrade playground de\
+	helm upgrade airflow "./charts/airflow"\
  	--install\
  	--create-namespace\
  	--namespace "playground-ns"\
- 	--set global.postgresql.auth.postgresPassword="macondo"\
- 	 -f "./de/values.yaml"\
+ 	 -f "./charts/values.yaml"\
+ 	 --debug
+
+release-marquez:
+	# step 4
+	# install our chart
+	helm upgrade marquez "./charts/marquez"\
+ 	--install\
+ 	--create-namespace\
+ 	--namespace "playground-ns"\
+ 	 -f "./charts/values.yaml"\
  	 --debug
 
 cleanup:
-	kind delete cluster kind-de
+	kind delete clusters de
