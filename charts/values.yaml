@@ -13,3 +13,10 @@ airflow:
 
   postgresql:
     enabled: true
+
+  workers:
+    persistence:
+      # Enable persistent volumes
+      enabled: true # this is the default (true)
+      # Volume size for worker StatefulSet
+      size: 20Gi
