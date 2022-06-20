@@ -24,6 +24,21 @@ lock-airflow:
 	# update our chart
 	helm dependency update "./charts/airflow"
 
+lock-localfs:
+	# step 3c
+	# update our chart
+	helm dependency update "./charts/localfs"
+
+lock-superset:
+	# step 3c
+	# update our chart
+	helm dependency update "./charts/superset"
+
+lock-localstack:
+	# step 3c
+	# update our chart
+	helm dependency update "./charts/localstack"
+
 release-airflow:
 	# step 4a
 	# install airflow chart
@@ -34,10 +49,40 @@ release-airflow:
  	 -f "./charts/values.yaml"\
  	 --debug
 
-release-marquez:
+release-localfs:
 	# step 4b
 	# install marquez chart
+	helm upgrade localfs "./charts/localfs"\
+ 	--install\
+ 	--create-namespace\
+ 	--namespace "playground-ns"\
+ 	 -f "./charts/values.yaml"\
+ 	 --debug
+
+release-marquez:
+	# step 4c
+	# install marquez chart
 	helm upgrade marquez "./charts/marquez"\
+ 	--install\
+ 	--create-namespace\
+ 	--namespace "playground-ns"\
+ 	 -f "./charts/values.yaml"\
+ 	 --debug
+
+release-superset:
+	# step 4c
+	# install marquez chart
+	helm upgrade superset "./charts/superset"\
+ 	--install\
+ 	--create-namespace\
+ 	--namespace "playground-ns"\
+ 	 -f "./charts/values.yaml"\
+ 	 --debug
+
+release-localstack:
+	# step 4c
+	# install marquez chart
+	helm upgrade localstack "./charts/localstack"\
  	--install\
  	--create-namespace\
  	--namespace "playground-ns"\

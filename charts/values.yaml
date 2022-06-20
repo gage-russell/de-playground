@@ -1,3 +1,22 @@
+localstack:
+  enabled: true
+
+superset:
+  enabled: true
+
+localfs:
+  # path needs to align with mountPath for location on node
+  enabled: true
+  name: local-dags
+  path: /mnt/local
+  size: 100Mi
+  accessModes:
+    - ReadWriteMany
+  debug:
+    enabled: false
+    volumeName: debug-volume
+    volumeMountPath: /tmp/fs
+
 marquez:
   enabled: true
 
@@ -13,10 +32,44 @@ airflow:
 
   postgresql:
     enabled: true
+    persistence:
+      size: 100Mi
 
+  statsd:
+    enabled: false
+
+  triggerer:
+    enabled: false
+
+#  scheduler:
+#    resources:
+#      limits:
+#        cpu: 10m
+#        memory: 12Mi
+#      requests:
+#        cpu: 10m
+#        memory: 12Mi
+#
+#  webserver:
+#    resources:
+#      limits:
+#        cpu: 10m
+#        memory: 12Mi
+#      requests:
+#        cpu: 10m
+#        memory: 12Mi
+#
   workers:
+#    resources:
+#      limits:
+#        cpu: 10m
+#        memory: 12Mi
+#      requests:
+#        cpu: 10m
+#        memory: 12Mi
+#
     persistence:
       # Enable persistent volumes
       enabled: true # this is the default (true)
       # Volume size for worker StatefulSet
-      size: 20Gi
+      size: 100Mi

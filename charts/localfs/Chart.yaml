@@ -1,0 +1,12 @@
+apiVersion: v2
+name: localfs
+version: 0.1.0
+appVersion: 0.1.0
+description: Local filesystem locations as PVs
+type: application
+dependencies:
+  - name: localfs
+    version: 0.1.0
+    repository: file://./localfs
+    condition: localfs.enabled
+
