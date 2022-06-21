@@ -1,8 +1,31 @@
+postgresql:
+  # parameters: https://github.com/bitnami/charts/tree/master/bitnami/postgresql/#parameters
+  # databases are created from templates/dbinit.yaml
+  # default user/secret being used
+  enabled: true
+
+  global:
+    postgresql:
+      auth:
+        username: admin
+        password: admin
+        database: playground
+        postgresPassword: admin
+
 localstack:
   enabled: true
 
 superset:
   enabled: true
+
+  extraConfigs:
+     import_datasources.yaml: |
+         databases:
+         - allow_file_upload: true
+           allow_ctas: true
+           allow_cvas: true
+           database_name: playground
+           sqlalchemy_uri: postgresql://admin:admin@postgresql.playground-ns:5432/postgres?sslmode=disable
 
 localfs:
   # path needs to align with mountPath for location on node
@@ -73,3 +96,9 @@ airflow:
       enabled: true # this is the default (true)
       # Volume size for worker StatefulSet
       size: 100Mi
+
+  dags:
+    persistence:
+      enabled: true
+      accessMode: ReadWriteMany
+      existingClaim: 'localfs-local-dags-pvc'

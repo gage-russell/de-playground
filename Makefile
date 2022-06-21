@@ -34,6 +34,11 @@ lock-superset:
 	# update our chart
 	helm dependency update "./charts/superset"
 
+lock-postgresql:
+	# step 3c
+	# update our chart
+	helm dependency update "./charts/postgresql"
+
 lock-localstack:
 	# step 3c
 	# update our chart
@@ -83,6 +88,31 @@ release-localstack:
 	# step 4c
 	# install marquez chart
 	helm upgrade localstack "./charts/localstack"\
+ 	--install\
+ 	--create-namespace\
+ 	--namespace "playground-ns"\
+ 	 -f "./charts/values.yaml"\
+ 	 --debug
+
+release-postgresql:
+	# step 4c
+	# install marquez chart
+	helm upgrade postgresql "./charts/postgresql"\
+ 	--install\
+ 	--create-namespace\
+ 	--namespace "playground-ns"\
+ 	 -f "./charts/values.yaml"\
+ 	 --debug
+
+release-superset-playground:
+	helm upgrade postgresql "./charts/postgresql"\
+ 	--install\
+ 	--create-namespace\
+ 	--namespace "playground-ns"\
+ 	 -f "./charts/values.yaml"\
+ 	 --debug
+
+	helm upgrade superset "./charts/superset"\
  	--install\
  	--create-namespace\
  	--namespace "playground-ns"\
