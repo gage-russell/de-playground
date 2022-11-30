@@ -3,7 +3,4 @@ apiVersion: kind.x-k8s.io/v1alpha4
 nodes:
 - role: control-plane
   image: kindest/node:v1.23.5
-  extraMounts:
-    - hostPath: /Users/developer/github/de-playground/shared-dir
-      containerPath: /mnt/local
 name: de

@@ -1,104 +1,11 @@
-postgresql:
-  # parameters: https://github.com/bitnami/charts/tree/master/bitnami/postgresql/#parameters
-  # databases are created from templates/dbinit.yaml
-  # default user/secret being used
-  enabled: true
-
-  global:
-    postgresql:
-      auth:
-        username: admin
-        password: admin
-        database: playground
-        postgresPassword: admin
-
 localstack:
   enabled: true
+  livenessProbe:
+    initialDelaySeconds: 10
+    periodSeconds: 20
+    timeoutSeconds: 5
+  readinessProbe:
+    initialDelaySeconds: 10
+    periodSeconds: 20
+    timeoutSeconds: 5
 
-superset:
-  enabled: true
-
-  extraConfigs:
-     import_datasources.yaml: |
-         databases:
-         - allow_file_upload: true
-           allow_ctas: true
-           allow_cvas: true
-           database_name: playground
-           sqlalchemy_uri: postgresql://admin:admin@postgresql.playground-ns:5432/postgres?sslmode=disable
-
-localfs:
-  # path needs to align with mountPath for location on node
-  enabled: true
-  name: local-dags
-  path: /mnt/local
-  size: 100Mi
-  accessModes:
-    - ReadWriteMany
-  debug:
-    enabled: false
-    volumeName: debug-volume
-    volumeMountPath: /tmp/fs
-
-marquez:
-  enabled: true
-
-#  port: 80
-#
-#  hostname: marquez.playground-ns.svc.cluster.local
-
-  postgresql:
-    enabled: true
-
-airflow:
-  enabled: true
-
-  postgresql:
-    enabled: true
-    persistence:
-      size: 100Mi
-
-  statsd:
-    enabled: false
-
-  triggerer:
-    enabled: false
-
-#  scheduler:
-#    resources:
-#      limits:
-#        cpu: 10m
-#        memory: 12Mi
-#      requests:
-#        cpu: 10m
-#        memory: 12Mi
-#
-#  webserver:
-#    resources:
-#      limits:
-#        cpu: 10m
-#        memory: 12Mi
-#      requests:
-#        cpu: 10m
-#        memory: 12Mi
-#
-  workers:
-#    resources:
-#      limits:
-#        cpu: 10m
-#        memory: 12Mi
-#      requests:
-#        cpu: 10m
-#        memory: 12Mi
-#
-    persistence:
-      # Enable persistent volumes
-      enabled: true # this is the default (true)
-      # Volume size for worker StatefulSet
-      size: 100Mi
-
-  dags:
-    persistence:
-      enabled: true
-      accessMode: ReadWriteMany
-      existingClaim: 'localfs-local-dags-pvc'

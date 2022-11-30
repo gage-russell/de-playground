@@ -14,75 +14,10 @@ set-context:
 	kubectl config use-context kind-de
 	kubectl config set-context --current --namespace=playground-ns
 
-lock-marquez:
-	# step 3a
-	# update marquez
-	helm dependency update "./charts/marquez"
-
-lock-airflow:
-	# step 3b
-	# update our chart
-	helm dependency update "./charts/airflow"
-
-lock-localfs:
-	# step 3c
-	# update our chart
-	helm dependency update "./charts/localfs"
-
-lock-superset:
-	# step 3c
-	# update our chart
-	helm dependency update "./charts/superset"
-
-lock-postgresql:
-	# step 3c
-	# update our chart
-	helm dependency update "./charts/postgresql"
-
 lock-localstack:
 	# step 3c
 	# update our chart
 	helm dependency update "./charts/localstack"
-
-release-airflow:
-	# step 4a
-	# install airflow chart
-	helm upgrade airflow "./charts/airflow"\
- 	--install\
- 	--create-namespace\
- 	--namespace "playground-ns"\
- 	 -f "./charts/values.yaml"\
- 	 --debug
-
-release-localfs:
-	# step 4b
-	# install marquez chart
-	helm upgrade localfs "./charts/localfs"\
- 	--install\
- 	--create-namespace\
- 	--namespace "playground-ns"\
- 	 -f "./charts/values.yaml"\
- 	 --debug
-
-release-marquez:
-	# step 4c
-	# install marquez chart
-	helm upgrade marquez "./charts/marquez"\
- 	--install\
- 	--create-namespace\
- 	--namespace "playground-ns"\
- 	 -f "./charts/values.yaml"\
- 	 --debug
-
-release-superset:
-	# step 4c
-	# install marquez chart
-	helm upgrade superset "./charts/superset"\
- 	--install\
- 	--create-namespace\
- 	--namespace "playground-ns"\
- 	 -f "./charts/values.yaml"\
- 	 --debug
 
 release-localstack:
 	# step 4c
@@ -94,30 +29,17 @@ release-localstack:
  	 -f "./charts/values.yaml"\
  	 --debug
 
-release-postgresql:
-	# step 4c
-	# install marquez chart
-	helm upgrade postgresql "./charts/postgresql"\
- 	--install\
- 	--create-namespace\
- 	--namespace "playground-ns"\
- 	 -f "./charts/values.yaml"\
- 	 --debug
-
-release-superset-playground:
-	helm upgrade postgresql "./charts/postgresql"\
- 	--install\
- 	--create-namespace\
- 	--namespace "playground-ns"\
- 	 -f "./charts/values.yaml"\
- 	 --debug
-
-	helm upgrade superset "./charts/superset"\
- 	--install\
- 	--create-namespace\
- 	--namespace "playground-ns"\
- 	 -f "./charts/values.yaml"\
- 	 --debug
+# port forward localstack
+# kubectl port-forward <pod> 4566:4566
+# create bucket
+# awslocal s3api create-bucket --bucket my-bucket
+# list bucket contents
+# awslocal s3 ls s3://my-bucket
+# upload file
+# awslocal s3 cp foo.txt s3://my-bucket/foo.txt
+# awslocal s3 cp foo.txt s3://my-bucket/test-dir/foo.txt
+# awslocal s3 cp foo.txt s3://my-bucket/test-dir/foo.txt/foo.txt
+# awslocal s3 ls s3://my-bucket/test-dir/foo.txt
 
 cleanup:
 	kind delete clusters de

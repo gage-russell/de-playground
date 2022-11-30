@@ -1,6 +1,0 @@
-dependencies:
-- name: localfs
-  repository: file://./localfs
-  version: 0.1.0
-digest: sha256:fa8266163b40bbe4d433c7b151222a0221c9e8bab20b71f2d5830d7b3af0162c
-generated: "2022-05-28T20:16:47.461858-05:00"
