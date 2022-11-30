@@ -8,4 +8,10 @@ localstack:
     initialDelaySeconds: 10
     periodSeconds: 20
     timeoutSeconds: 5
-
+  # This will enable the Docker daemon binding and allow
+  # Localstack to provide Lambdas and other AWS services
+  # who got container runtime dependencies
+  mountDind:
+    enabled: true
+    forceTLS: true
+    image: "docker:20.10-dind"
